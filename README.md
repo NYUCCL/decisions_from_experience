@@ -14,3 +14,4 @@ Potential Experiments
    - high explicit sample costs
    - non-monetary sample costs?
 3. (Speculative) If people tend to over(under)-sample, can we do some kind of training to get them to sample less(more)? Taking inspiration from Anna's project, this could involve first doing a game with certain problems, certain sample costs, etc...
+   - the pipe dream would be if explicitly charging people for samples the right amount or only at the beginning actually caused subjects to make *more* money than if they weren't charged for samples.
