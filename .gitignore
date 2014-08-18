@@ -1,0 +1,15 @@
+/server.log
+*.db
+
+.DS_Store
+
+/.psiturk_history
+
+*.aux
+*.log
+*.synctex.gz
+*.bbl
+*.blg
+
+*~
+*#
