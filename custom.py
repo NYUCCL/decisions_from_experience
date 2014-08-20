@@ -14,6 +14,8 @@ from psiturk.db import db_session, init_db
 from psiturk.models import Participant
 from json import dumps, loads
 
+from stimuli_generator import problems_generator
+
 # load the configuration options
 config = PsiturkConfig()
 config.load_config()
@@ -34,7 +36,7 @@ custom_code = Blueprint('custom_code', __name__, template_folder='templates', st
 #----------------------------------------------
 @custom_code.route('/my_custom_view')
 def my_custom_view():
-	current_app.logger.info("Reached /my_custom_view")  # Print message to server.log for debugging 
+	current_app.logger.info("Reached /my_custom_view")  # Print message to server.log for debugging
 	try:
 		return render_template('custom.html')
 	except TemplateNotFound:
@@ -62,6 +64,20 @@ def list_my_data():
 		return render_template('list.html', participants=users)
 	except TemplateNotFound:
 		abort(404)
+
+
+#----------------------------------------------
+# get stimuli for experiment
+#----------------------------------------------
+@custom_code.route('/get_stims', methods=['GET'])
+def get_stims():
+    current_app.logger.info("accessing route /get_stims")
+    #get all the parameters for the stim generator from the request
+    trials = problems_generator(int(request.args['condition']),
+                                int(request.args['counterbalance']))
+    return jsonify(results=trials)
+
+
 
 #----------------------------------------------
 # example computing bonus
@@ -96,5 +112,3 @@ def compute_bonus():
         return jsonify(**resp)
     except:
         abort(404)  # again, bad to display HTML, but...
-
-    
